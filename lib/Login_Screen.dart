@@ -4,7 +4,7 @@ import 'package:homeservice/authenticationservice.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -32,12 +32,12 @@ class LoginPage extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: TextField(
-                    controller: nameController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(25.0),
                       ),
-                      labelText: 'User Name',
+                      labelText: 'E-Mail',
                     ),
                   ),
                 ),
@@ -73,7 +73,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       onPressed: () {
                        context.read<AuthenticationService>().signIn(
-                         email: nameController.text,
+                         email: emailController.text,
                          password: passwordController.text,
                        );
                       },

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 class MainPage extends StatelessWidget {
+
   var services = [
     "House Cleaning Service",
     "Carpet Cleaning Service",
@@ -41,24 +42,24 @@ class MainPage extends StatelessWidget {
             ),
     itemBuilder: (BuildContext context,int index){
     return Card(
-    child: Column(
-    children: <Widget>[
-    SizedBox(
-    height: 20,
+       child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20,
+            ),
+           Image.asset(images[index],height: 50,width: 50,),
+          Padding(
+           padding: EdgeInsets.all(20),
+            child: Text(services[index],style: TextStyle(fontSize: 16,height: 1.2,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+         ),
+        ],
     ),
-    Image.asset(images[index],height: 50,width: 50,),
-    Padding(
-    padding: EdgeInsets.all(20),
-    child: Text(services[index],style: TextStyle(fontSize: 16,height: 1.2,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-    )
-    ],
-    ),
+
     );
-    }
+           }
     ),
     ));
-
     }
+}
 
-  }
 

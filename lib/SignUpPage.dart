@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:homeservice/authenticationservice.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
 
@@ -8,8 +11,8 @@ class SignUpPage extends StatefulWidget {
 
 class _State extends State<SignUpPage> {
   TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
   @override
@@ -40,21 +43,10 @@ class _State extends State<SignUpPage> {
                 decoration: InputDecoration(
                   border: new OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(25.0),),
-                  labelText: 'User Name',
-                  ),
-                  ),
-                  ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                    child: TextField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                    border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(25.0),),
-                    labelText: 'Password',
-                    ),
-                    ),
-                    ),
+                  labelText: 'Username',
+                ),
+              ),
+            ),
             Container(
               padding: EdgeInsets.all(10),
               child: TextField(
@@ -78,6 +70,18 @@ class _State extends State<SignUpPage> {
               ),
             ),
             Container(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(25.0),),
+                  labelText: 'Password',
+                ),
+              ),
+            ),
+
+            Container(
                 height: 50,
                 padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
                 child: RaisedButton(
@@ -88,10 +92,13 @@ class _State extends State<SignUpPage> {
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                   onPressed: () {
-                    print(usernameController.text);
-                    print(passwordController.text);
-                    print(emailController.text);
-                    print(phoneController.text);
+                    context.read<AuthenticationService>().signUp(
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+                    User updateUser = FirebaseAuth.instance.currentUser;
+                    updateUser.updateProfile(displayName: usernameController.text);
+                    userSetup(usernameController.text);
                   },
                 )),
           ],
@@ -99,4 +106,6 @@ class _State extends State<SignUpPage> {
       ),
     );
   }
+
+  void userSetup(String text) {}
 }
